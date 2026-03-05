@@ -36,6 +36,8 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    testImplementation("org.assertj:assertj-core:3.27.7")
 }
 
 tasks.withType<Test> {
