@@ -1,6 +1,8 @@
 package org.thgcastro.agendamentonotificacaoapi.business.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.thgcastro.agendamentonotificacaoapi.controller.dto.in.AgendamentoRecord;
 import org.thgcastro.agendamentonotificacaoapi.controller.dto.out.AgendamentoRecordOut;
 import org.thgcastro.agendamentonotificacaoapi.infrastructure.entities.Agendamento;
@@ -14,4 +16,7 @@ public interface IAgendamentoMapper {
 
     AgendamentoRecordOut paraOut(Agendamento agendamento);
 
+    @Mapping(target = "dataHoraModificacao", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "statusNotificacao", expression = "java(StatusNotificacaoEnum.CANCELADO)")
+    Agendamento paraEntityCancelamento(Agendamento agendamento);
 }

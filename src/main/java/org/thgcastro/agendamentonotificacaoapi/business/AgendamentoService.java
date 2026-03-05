@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.thgcastro.agendamentonotificacaoapi.business.mapper.IAgendamentoMapper;
 import org.thgcastro.agendamentonotificacaoapi.controller.dto.in.AgendamentoRecord;
 import org.thgcastro.agendamentonotificacaoapi.controller.dto.out.AgendamentoRecordOut;
+import org.thgcastro.agendamentonotificacaoapi.infrastructure.entities.Agendamento;
 import org.thgcastro.agendamentonotificacaoapi.infrastructure.exception.NotFoundException;
 import org.thgcastro.agendamentonotificacaoapi.infrastructure.repositories.AgendamentoRepository;
 
@@ -23,5 +24,12 @@ public class AgendamentoService {
     public AgendamentoRecordOut buscarAgendamentosPorId(Long id){
         return agendamentoMapper.paraOut(repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Id não encontrado")));
+    }
+
+    public void cancelarAgendamento(Long id){
+        Agendamento agendamento = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Id não encontrado"));
+
+        repository.save(agendamentoMapper.paraEntityCancelamento(agendamento));
     }
 }
